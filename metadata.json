@@ -1,0 +1,7 @@
+{
+  "name": "F1RST-WASH Berlin",
+  "description": "High-end premium car wash and detailing services located at the Mall of Berlin, offering expert hand wash and valet convenience.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

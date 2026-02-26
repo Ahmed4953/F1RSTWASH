@@ -1,7 +1,12 @@
 {
   "$schema": "https://schema.railpack.com",
+  "secrets": [],
   "steps": {
+    "install": {
+      "secrets": []
+    },
     "build": {
+      "secrets": [],
       "commands": ["true"]
     }
   },

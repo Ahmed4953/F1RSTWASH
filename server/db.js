@@ -3,10 +3,12 @@ import path from 'node:path';
 import os from 'node:os';
 import Database from 'better-sqlite3';
 
-// Prefer DATA_DIR env (Railway: set to /tmp/data or a volume path). Fallback for read-only filesystems.
+// DATA_DIR env wins. On Railway (no writable disk by default) use /tmp if DATA_DIR not set.
 const DEFAULT_DATA_DIR = process.env.DATA_DIR
   ? path.resolve(process.env.DATA_DIR)
-  : path.resolve(process.cwd(), 'server', 'data');
+  : process.env.RAILWAY_ENVIRONMENT
+    ? path.join(os.tmpdir(), 'f1rst-wash-data')
+    : path.resolve(process.cwd(), 'server', 'data');
 const FALLBACK_DATA_DIR = path.join(os.tmpdir(), 'f1rst-wash-data');
 
 function ensureDir(p) {

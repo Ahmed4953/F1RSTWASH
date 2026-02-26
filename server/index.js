@@ -212,12 +212,10 @@ app.post('/api/bookings', (req, res) => {
           (?,  ?,          ?,        ?,      ?,             ?,              ?,              'confirmed', ?)`
       ).run(id, serviceId, startTs, endTs, customerName, customerPhone, customerEmail, createdAt);
     } catch (dbErr) {
-      const code = dbErr && dbErr.code;
-      if (code === 'SQLITE_READONLY' || code === 'SQLITE_CANTOPEN' || (dbErr.message && dbErr.message.includes('readonly'))) {
-        console.error('[API] Database write failed (read-only or path issue). Set DATA_DIR to a writable path (e.g. /tmp/data).', dbErr);
-        return res.status(503).json({ error: 'Booking storage is temporarily unavailable. Please try again later or contact us.' });
-      }
-      throw dbErr;
+      console.error('[API] Database write failed:', dbErr.code || dbErr.message, dbErr);
+      return res.status(503).json({
+        error: 'Booking storage is temporarily unavailable. Please try again later or contact us.',
+      });
     }
 
     sendBookingNotification({

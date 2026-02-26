@@ -300,8 +300,15 @@ function countOverlaps(ranges, startTs, endTs) {
   return c;
 }
 
-const PORT = process.env.PORT || 8080;
+// Prevent uncaught route errors from crashing the process (which causes 502)
+app.use((err, _req, res, _next) => {
+  console.error('[Express] Unhandled error:', err);
+  res.status(500).json({ error: 'Server error. Try again.' });
+});
+
+// Railway injects PORT; must be a number. Bind to 0.0.0.0 so the proxy can reach the app.
+const PORT = Number(process.env.PORT) || 8080;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log("Booking API listening on 0.0.0.0:" + PORT);
+  console.log("Booking API listening on 0.0.0.0:" + PORT + " (env PORT=" + process.env.PORT + ")");
 });
 

@@ -179,6 +179,8 @@ const translations: Translations = {
       successTitle: 'Gebucht!',
       successBody: 'Wir haben Ihren Termin reserviert.',
       errorGeneric: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
+      errorServer: 'Serverfehler. Bitte später erneut versuchen.',
+      errorConnection: 'Verbindung zum Buchungsserver fehlgeschlagen. Bitte später erneut versuchen.',
     },
     footer: {
       desc: 'Premium Fahrzeugpflege im Herzen von Berlin. Wir definieren Standards neu und erhalten den Wert Ihres Automobils.',
@@ -360,6 +362,8 @@ const translations: Translations = {
       successTitle: 'Booked!',
       successBody: 'Your appointment has been reserved.',
       errorGeneric: 'Something went wrong. Please try again.',
+      errorServer: 'Server error. Please try again later.',
+      errorConnection: 'Cannot reach the booking server. Please try again later.',
     },
     footer: {
       desc: 'Premium vehicle care in the heart of Berlin. We redefine standards and preserve the value of your automobile.',

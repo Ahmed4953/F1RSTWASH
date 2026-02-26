@@ -8,7 +8,6 @@ import { DateTime } from 'luxon';
 import { openDb } from './db.js';
 import { sendBookingNotification } from './email.js';
 
-const PORT = Number(process.env.PORT || 3334);
 const TIMEZONE = process.env.BOOKING_TZ || 'Europe/Berlin';
 
 // Default hours (Berlin local time)
@@ -285,7 +284,8 @@ function countOverlaps(ranges, startTs, endTs) {
   return c;
 }
 
+const PORT = process.env.PORT || 4001;
 app.listen(PORT, () => {
-  console.log(`Booking API listening on http://localhost:${PORT}`);
+  console.log("Booking API listening on port " + PORT);
 });
 

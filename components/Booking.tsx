@@ -150,11 +150,14 @@ const Booking: React.FC = () => {
 
   const canSubmit = !!serviceId && !!selectedStart && !!name.trim() && !!phone.trim();
 
+  // In production (Vercel), point to your hosted API (e.g. Railway). In dev, '' uses Vite proxy.
+  const apiBase = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+
   const submit = async () => {
     setError('');
     setSuccess(null);
     try {
-      const res = await fetch('/api/bookings', {
+      const res = await fetch(`${apiBase}/api/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -169,7 +172,7 @@ const Booking: React.FC = () => {
       try {
         json = await res.json();
       } catch {
-        setError(`${res.status ? `Server error ${res.status}. ` : ''}Is the API running? Run: npm run dev:api`);
+        setError(res.status ? t('bookingForm.errorServer') || `Server error ${res.status}.` : (t('bookingForm.errorConnection') || 'Cannot reach the booking server. Try again later.'));
         return;
       }
       if (!res.ok) {
@@ -212,7 +215,7 @@ const Booking: React.FC = () => {
     } catch (err) {
       setError(
         err instanceof Error
-          ? `Connection failed: ${err.message}. Is the API running? Run: npm run dev:api`
+          ? (t('bookingForm.errorConnection') || `Connection failed: ${err.message}. Try again later.`)
           : String(t('bookingForm.errorGeneric') || 'Error')
       );
     }

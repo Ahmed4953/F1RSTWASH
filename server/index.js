@@ -23,8 +23,14 @@ app.use(cors());
 app.use(express.json());
 
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3333';
-app.get('/', (_req, res) => {
-  res.redirect(302, FRONTEND_URL);
+app.get('/', (req, res) => {
+  // Return 200 for health checks (Railway, load balancers); redirect browsers to frontend
+  const wantsHtml = (req.headers.accept || '').includes('text/html');
+  if (wantsHtml) {
+    res.redirect(302, FRONTEND_URL);
+  } else {
+    res.status(200).json({ ok: true, message: 'Booking API' });
+  }
 });
 
 app.get('/api/health', (_req, res) => {
@@ -296,6 +302,6 @@ function countOverlaps(ranges, startTs, endTs) {
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log("Booking API listening on port " + PORT);
+  console.log("Booking API listening on 0.0.0.0:" + PORT);
 });
 

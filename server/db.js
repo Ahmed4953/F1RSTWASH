@@ -1,29 +1,40 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import Database from 'better-sqlite3';
 
-// On Railway use DATA_DIR env (e.g. /tmp/data or a volume path) so DB is writable
-const DATA_DIR = process.env.DATA_DIR
+// Prefer DATA_DIR env (Railway: set to /tmp/data or a volume path). Fallback for read-only filesystems.
+const DEFAULT_DATA_DIR = process.env.DATA_DIR
   ? path.resolve(process.env.DATA_DIR)
   : path.resolve(process.cwd(), 'server', 'data');
-const DB_PATH = path.join(DATA_DIR, 'bookings.sqlite');
+const FALLBACK_DATA_DIR = path.join(os.tmpdir(), 'f1rst-wash-data');
 
 function ensureDir(p) {
-  try {
-    if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
-  } catch (e) {
-    console.error('[DB] Cannot create data dir:', p, e.message);
-    throw e;
-  }
+  if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
 }
 
-export function openDb() {
-  ensureDir(DATA_DIR);
-  const db = new Database(DB_PATH);
+function tryOpenDb(dataDir) {
+  const dbPath = path.join(dataDir, 'bookings.sqlite');
+  ensureDir(dataDir);
+  const db = new Database(dbPath);
   db.pragma('journal_mode = WAL');
   migrate(db);
   seed(db);
   return db;
+}
+
+export function openDb() {
+  try {
+    return tryOpenDb(DEFAULT_DATA_DIR);
+  } catch (e) {
+    console.warn('[DB] Default path failed:', e.message, '- trying fallback', FALLBACK_DATA_DIR);
+    try {
+      return tryOpenDb(FALLBACK_DATA_DIR);
+    } catch (e2) {
+      console.error('[DB] Fallback also failed:', e2.message);
+      throw e2;
+    }
+  }
 }
 
 function migrate(db) {

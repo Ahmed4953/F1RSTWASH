@@ -36,7 +36,7 @@ const Location: React.FC = () => {
           <div className="absolute top-8 left-8 pointer-events-none">
             <div className="flex items-center gap-2 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5">
               <div className="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse" />
-              <span className="text-[9px] font-black tracking-[0.3em] uppercase text-white/80">Satellite Tracking</span>
+              <span className="text-[9px] font-black tracking-[0.3em] uppercase text-white/80">{t('location.satelliteLabel')}</span>
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@ const Location: React.FC = () => {
               </div>
               <div>
                 <h5 className="font-bold uppercase text-[10px] tracking-widest mb-1 text-zinc-500">{t('location.addressLabel')}</h5>
-                <p className="text-lg leading-snug">Leipziger Platz 12 <br /> <span className="text-zinc-400">10117 Berlin (Mall of Berlin)</span></p>
+                <p className="text-lg leading-snug">{t('location.addressLine1')} <br /> <span className="text-zinc-400">{t('location.addressLine2')}</span></p>
               </div>
             </div>
 
@@ -75,7 +75,7 @@ const Location: React.FC = () => {
                 <p className="text-lg leading-snug">
                   <a href="tel:+491787477771" className="hover:text-zinc-400 transition-colors">+49 178 7477771</a> 
                   <br /> 
-                  <span className="text-zinc-400">hello@f1rst-wash.de</span>
+                  <span className="text-zinc-400">{t('location.email')}</span>
                 </p>
               </div>
             </div>

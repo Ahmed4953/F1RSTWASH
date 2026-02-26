@@ -19,12 +19,14 @@ const translations: Translations = {
       book: 'Termin buchen',
     },
     hero: {
-      openStatus: 'Mall of Berlin • Geöffnet bis 21:00',
+      openStatus: 'Mall of Berlin • Geöffnet bis 20:00',
       headline: 'Exzellenz',
       subHeadline: 'Im Detail',
       description: '',
       ctaPrimary: 'Jetzt Buchen',
       ctaSecondary: 'Unsere Services',
+      washNow: 'Jetzt waschen',
+      scroll: 'Scroll',
     },
     ticker: [
       "15.000+ ZUFRIEDENE KUNDEN",
@@ -60,7 +62,7 @@ const translations: Translations = {
         price: 'ab 69€',
       },
       detailing: {
-        title: 'Premium Detailing',
+        title: 'Premium Aufbereitung',
         desc: 'Mehrstufige Lackpolitur, Keramikversiegelung und Motorraumreinigung für Neuwagenzustand.',
         price: 'auf Anfrage',
       },
@@ -69,13 +71,20 @@ const translations: Translations = {
         desc: 'Geben Sie Ihren Schlüssel ab und shoppen Sie entspannt. Wir parken und reinigen für Sie.',
         price: 'Service Inkl.',
       },
+      premiumCleaning: { title: 'Premium Reinigung' },
+      smartRepair: { title: 'Kleinstreparatur' },
+      dentRemoval: { title: 'Beul- & Kratzerentfernung' },
+      ppf: { title: 'PPF Folierung' },
       detailsBtn: 'Details',
     },
     anatomy: {
       label: 'Präzisions-Scan',
       title: 'Anatomie der Perfektion',
       status: 'Status: Optimal',
+      efficiencyStatus: 'Effizienz-Status',
+      optimal: 'Optimal',
       init: 'Initialisiere Scan-Modul...',
+      category: 'Exterieur',
       parts: [
         { title: 'KERAMIK-SCHILD', desc: '9H+ Härtegrad Versiegelung für ultimativen Tiefenglanz und Schutz.' },
         { title: 'FELGEN-PRÄZISION', desc: 'Porentiefe Reinigung und Versiegelung gegen aggressiven Bremsstaub.' },
@@ -83,6 +92,19 @@ const translations: Translations = {
         { title: 'LACK-THERAPIE', desc: 'Mehrstufige Hochglanzpolitur zur Entfernung feinster Hologramme.' },
         { title: 'INTERIEUR-SPA', desc: 'Ozon-Behandlung und Tiefenpflege für exklusives Leder-Finish.' }
       ]
+    },
+    blueprint: {
+      title: 'Anatomie Perfektion',
+      subtitle: 'Präzisions-Scan',
+      parts: [
+        { title: 'KERAMIK-SCHILD', label: 'Exterieur', desc: '9H+ Härtegrad Versiegelung für ultimativen Tiefenglanz und Schutz.', data: '9H HARTE' },
+        { title: 'GLAS-KLARHEIT', label: 'Verglasung', desc: 'Hydrophobe Nanobeschichtung für perfekte Sicht bei jedem Wetter.', data: 'HD KLAR' },
+        { title: 'FELGEN-PRÄZISION', label: 'Felgen', desc: 'Porentiefe Reinigung und Versiegelung gegen aggressiven Bremsstaub.', data: 'RIM PRO' },
+        { title: 'INTERIEUR-SPA', label: 'Innenraum', desc: 'Ozon-Behandlung und Tiefenpflege für exklusives Leder-Finish.', data: 'INTERIOR' },
+      ],
+      annotations: { model: 'Modell', status: 'Status', analysis: 'Analyse', loc: 'Standort' },
+      efficiency: 'Effizienz-Status',
+      optimal: 'Optimal',
     },
     usps: [
       { title: "Handarbeit", desc: "Keine Kratzer durch Waschanlagen. Nur feinste Handarbeit." },
@@ -98,6 +120,7 @@ const translations: Translations = {
     },
     reviews: {
       label: 'Bewertungen',
+      title: 'Stimmen der Perfektion.',
       items: [
         { name: "Maximilian S.", car: "Porsche 911 GT3", text: "Absolut professionell. Mein Lack sieht aus wie am ersten Tag. Der Valet-Service in der Mall of Berlin ist unschlagbar bequem." },
         { name: "Elena K.", car: "Audi RS6 Avant", text: "Die Innenreinigung ist die beste, die ich in Berlin je hatte. Jeder Winkel ist sauber, und der Duft ist dezent und hochwertig." },
@@ -107,10 +130,14 @@ const translations: Translations = {
     location: {
       label: 'Standort',
       title: 'Mitten In Berlin.',
+      addressLine1: 'Leipziger Platz 12',
+      addressLine2: '10117 Berlin (Mall of Berlin)',
+      email: 'hello@f1rst-wash.de',
+      satelliteLabel: 'Satellitenverfolgung',
       addressLabel: 'Adresse',
       hoursLabel: 'Öffnungszeiten',
       contactLabel: 'Kontakt',
-      hours: 'Mo – Sa: 10:00 – 21:00',
+      hours: 'Mo – Sa: 10:00 – 20:00',
       closed: 'Sonntag: Geschlossen',
       routeBtn: 'Route Planen',
       overviewBtn: 'Mall Übersicht',
@@ -132,10 +159,34 @@ const translations: Translations = {
         last: ['Vor weniger als 1 Monat', '1-3 Monate her', 'Länger als 6 Monate', 'Noch nie']
       }
     },
+    bookingForm: {
+      title: 'Termin buchen',
+      subtitle: 'Termin Buchen',
+      backToHome: 'Zur Startseite',
+      serviceLabel: 'Service',
+      serviceName: 'Autowäsche (Standard)',
+      dateLabel: 'Datum',
+      timeLabel: 'Uhrzeit',
+      selectedDateLabel: 'Ausgewähltes Datum',
+      nameLabel: 'Name',
+      phoneLabel: 'Telefon',
+      phonePlaceholder: '+49 …',
+      emailLabel: 'E-Mail (optional)',
+      emailPlaceholder: 'name@email.com',
+      loading: 'Lade verfügbare Zeiten…',
+      noSlots: 'Keine freien Zeiten an diesem Tag.',
+      bookBtn: 'Termin bestätigen',
+      successTitle: 'Gebucht!',
+      successBody: 'Wir haben Ihren Termin reserviert.',
+      errorGeneric: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
+    },
     footer: {
       desc: 'Premium Fahrzeugpflege im Herzen von Berlin. Wir definieren Standards neu und erhalten den Wert Ihres Automobils.',
       nav: 'Navigation',
       legal: 'Rechtliches',
+      impressum: 'Impressum',
+      privacy: 'Datenschutz',
+      terms: 'AGB',
       rights: 'ALLE RECHTE VORBEHALTEN.',
       top: 'Nach Oben',
     }
@@ -149,12 +200,14 @@ const translations: Translations = {
       book: 'Book Now',
     },
     hero: {
-      openStatus: 'Mall of Berlin • Open until 9:00 PM',
+      openStatus: 'Mall of Berlin • Open until 8:00 PM',
       headline: 'Excellence',
       subHeadline: 'In Detail.',
       description: '',
       ctaPrimary: 'Book Now',
       ctaSecondary: 'Our Services',
+      washNow: 'Wash now',
+      scroll: 'Scroll',
     },
     ticker: [
       "15,000+ HAPPY CUSTOMERS",
@@ -199,13 +252,20 @@ const translations: Translations = {
         desc: 'Drop off your keys and shop relaxed. We park and clean for you.',
         price: 'Service Incl.',
       },
+      premiumCleaning: { title: 'Premium Cleaning' },
+      smartRepair: { title: 'Smart Repair' },
+      dentRemoval: { title: 'Dent & Ding Removal' },
+      ppf: { title: 'PPF Wrapping' },
       detailsBtn: 'Details',
     },
     anatomy: {
       label: 'Precision Scan',
       title: 'Anatomy of Perfection',
       status: 'Status: Optimal',
+      efficiencyStatus: 'Efficiency Status',
+      optimal: 'Optimal',
       init: 'Initializing scan module...',
+      category: 'Exterior',
       parts: [
         { title: 'CERAMIC SHIELD', desc: '9H+ hardness coating for ultimate deep gloss and protection.' },
         { title: 'RIM PRECISION', desc: 'Pore-deep cleaning and sealing against aggressive brake dust.' },
@@ -213,6 +273,19 @@ const translations: Translations = {
         { title: 'PAINT THERAPY', desc: 'Multi-stage high-gloss polishing to remove fine holograms.' },
         { title: 'INTERIOR SPA', desc: 'Ozone treatment and deep care for an exclusive leather finish.' }
       ]
+    },
+    blueprint: {
+      title: 'Anatomy Perfection',
+      subtitle: 'Precision Scan',
+      parts: [
+        { title: 'CERAMIC SHIELD', label: 'Exterior', desc: '9H+ hardness coating for ultimate deep gloss and protection.', data: '9H HARD' },
+        { title: 'GLASS CLARITY', label: 'Glazing', desc: 'Hydrophobic nano-coating for perfect visibility in any weather.', data: 'HD CLEAR' },
+        { title: 'RIM PRECISION', label: 'Rims', desc: 'Pore-deep cleaning and sealing against aggressive brake dust.', data: 'RIM PRO' },
+        { title: 'INTERIOR SPA', label: 'Interior', desc: 'Ozone treatment and deep care for an exclusive leather finish.', data: 'INTERIOR' },
+      ],
+      annotations: { model: 'Model', status: 'Status', analysis: 'Analysis', loc: 'Location' },
+      efficiency: 'Efficiency Status',
+      optimal: 'Optimal',
     },
     usps: [
       { title: "Handcrafted", desc: "No scratches from automatic washes. Pure artisan handwork." },
@@ -228,6 +301,7 @@ const translations: Translations = {
     },
     reviews: {
       label: 'Reviews',
+      title: 'Voices of Perfection.',
       items: [
         { name: "Maximilian S.", car: "Porsche 911 GT3", text: "Absolutely professional. My paint looks like day one. The valet service at the Mall of Berlin is unbeatable." },
         { name: "Elena K.", car: "Audi RS6 Avant", text: "The interior cleaning is the best I've ever had in Berlin. Every corner is clean, and the scent is subtle and high-end." },
@@ -237,10 +311,14 @@ const translations: Translations = {
     location: {
       label: 'Location',
       title: 'In the Heart of Berlin.',
+      addressLine1: 'Leipziger Platz 12',
+      addressLine2: '10117 Berlin (Mall of Berlin)',
+      email: 'hello@f1rst-wash.de',
+      satelliteLabel: 'Satellite Tracking',
       addressLabel: 'Address',
       hoursLabel: 'Opening Hours',
       contactLabel: 'Contact',
-      hours: 'Mon – Sat: 10:00 AM – 9:00 PM',
+      hours: 'Mon – Sat: 10:00 AM – 8:00 PM',
       closed: 'Sunday: Closed',
       routeBtn: 'Get Directions',
       overviewBtn: 'Mall Overview',
@@ -262,10 +340,34 @@ const translations: Translations = {
         last: ['Less than 1 month ago', '1-3 months ago', 'Longer than 6 months', 'Never']
       }
     },
+    bookingForm: {
+      title: 'Book a time slot',
+      subtitle: 'Book Appointment',
+      backToHome: 'Back to home',
+      serviceLabel: 'Service',
+      serviceName: 'Car wash (standard)',
+      dateLabel: 'Date',
+      timeLabel: 'Time',
+      selectedDateLabel: 'Selected date',
+      nameLabel: 'Name',
+      phoneLabel: 'Phone',
+      phonePlaceholder: '+49 …',
+      emailLabel: 'Email (optional)',
+      emailPlaceholder: 'name@email.com',
+      loading: 'Loading available times…',
+      noSlots: 'No free slots on this day.',
+      bookBtn: 'Confirm booking',
+      successTitle: 'Booked!',
+      successBody: 'Your appointment has been reserved.',
+      errorGeneric: 'Something went wrong. Please try again.',
+    },
     footer: {
       desc: 'Premium vehicle care in the heart of Berlin. We redefine standards and preserve the value of your automobile.',
       nav: 'Navigation',
       legal: 'Legal',
+      impressum: 'Imprint',
+      privacy: 'Privacy',
+      terms: 'Terms',
       rights: 'ALL RIGHTS RESERVED.',
       top: 'Back to Top',
     }

@@ -48,9 +48,9 @@ const Footer: React.FC = () => {
           <div>
             <h6 className="font-heading font-black italic uppercase text-xs tracking-widest mb-8">{t('footer.legal')}</h6>
             <ul className="space-y-4 text-zinc-500 text-sm">
-              <li><a href="#" className="hover:text-white transition-colors">Impressum</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Datenschutz</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">AGB</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">{t('footer.impressum')}</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">{t('footer.privacy')}</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">{t('footer.terms')}</a></li>
             </ul>
           </div>
         </div>

@@ -1,10 +1,12 @@
 
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Hero: React.FC = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -56,12 +58,22 @@ const Hero: React.FC = () => {
 
         {/* Minimalist Visual Anchor */}
         <div className={`h-[2px] bg-white/10 mx-auto transition-all duration-1000 delay-700 ${isLoaded ? 'w-16 opacity-100' : 'w-0 opacity-0'}`} />
+
+        {/* Wash now CTA */}
+        <div className={`mt-12 transition-all duration-700 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <button
+            onClick={() => navigate('/book')}
+            className="bg-white text-black px-10 py-4 md:px-12 md:py-5 font-heading font-black uppercase italic text-sm md:text-base tracking-tight hover:bg-zinc-200 transition-colors"
+          >
+            {t('hero.washNow')}
+          </button>
+        </div>
       </div>
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 opacity-20 hover:opacity-100 transition-opacity">
         <div className="flex flex-col items-center gap-3">
-          <span className="text-[10px] uppercase tracking-[0.4em] text-white">Scroll</span>
+          <span className="text-[10px] uppercase tracking-[0.4em] text-white">{t('hero.scroll')}</span>
           <ChevronDown size={20} className="text-white animate-bounce" />
         </div>
       </div>

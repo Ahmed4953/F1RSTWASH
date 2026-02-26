@@ -110,7 +110,12 @@ const BookingAssistant: React.FC = () => {
                         {recommendation}
                       </p>
                       <div className="mt-8 flex gap-4">
-                        <button className="bg-white text-black px-8 py-3 font-black uppercase text-xs tracking-widest hover:bg-zinc-200">{t('booking.bookBtn')}</button>
+                        <button
+                          onClick={() => document.getElementById('book')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                          className="bg-white text-black px-8 py-3 font-black uppercase text-xs tracking-widest hover:bg-zinc-200"
+                        >
+                          {t('booking.bookBtn')}
+                        </button>
                         <button onClick={reset} className="text-zinc-500 hover:text-white uppercase text-xs tracking-widest font-black">{t('booking.resetBtn')}</button>
                       </div>
                     </div>

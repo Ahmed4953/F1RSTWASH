@@ -2,11 +2,19 @@ import fs from 'node:fs';
 import path from 'node:path';
 import Database from 'better-sqlite3';
 
-const DATA_DIR = path.resolve(process.cwd(), 'server', 'data');
+// On Railway use DATA_DIR env (e.g. /tmp/data or a volume path) so DB is writable
+const DATA_DIR = process.env.DATA_DIR
+  ? path.resolve(process.env.DATA_DIR)
+  : path.resolve(process.cwd(), 'server', 'data');
 const DB_PATH = path.join(DATA_DIR, 'bookings.sqlite');
 
 function ensureDir(p) {
-  if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
+  try {
+    if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
+  } catch (e) {
+    console.error('[DB] Cannot create data dir:', p, e.message);
+    throw e;
+  }
 }
 
 export function openDb() {

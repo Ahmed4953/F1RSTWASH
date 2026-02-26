@@ -176,7 +176,8 @@ const Booking: React.FC = () => {
         return;
       }
       if (!res.ok) {
-        setError(json?.error || String(t('bookingForm.errorGeneric') || 'Error'));
+        const serverMsg = json?.error;
+        setError(serverMsg || String(t('bookingForm.errorGeneric') || 'Error'));
         return;
       }
       setSuccess(json);

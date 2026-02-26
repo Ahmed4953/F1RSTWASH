@@ -26,15 +26,25 @@ Railway runs your Node server all the time so customers can book anytime.
    | `SMTP_USER`     | Your email |
    | `SMTP_PASS`     | App password (Gmail: use an [App Password](https://support.google.com/accounts/answer/185833)) |
    | `BOOKING_TZ`    | `Europe/Berlin` (optional) |
+   | `DATA_DIR`      | If you get "Server error" or "Booking storage unavailable" when booking, set this to a writable path. Use **`/tmp/data`** so the app can write the SQLite DB (data is lost on redeploy), or add a **Volume** and set e.g. **`/data`** to keep bookings. |
 
 5. **Deploy.** When it’s running, open the service → **Settings** → **Domains** → **Generate Domain**. Copy the URL (e.g. `https://f1rst-wash-api-production.up.railway.app`).
 
+### If you see "Server error" or "Booking storage is temporarily unavailable"
+
+Railway’s default filesystem may not be writable for `server/data/`. Add this variable in Railway:
+
+- **`DATA_DIR`** = **`/tmp/data`**
+
+Redeploy. Bookings will work (data is lost on redeploy). To persist data, add a **Volume** in Railway, mount it at `/data`, and set **`DATA_DIR`** = **`/data`**.
+
 ### Optional: Keep bookings across deploys (SQLite on Railway)
 
-By default the SQLite file lives in `server/data/` and can be lost on redeploy. To keep it:
+By default the SQLite file lives in `server/data/`. To keep it across deploys:
 
-- In your Railway project, add a **Volume** and mount it at `server/data`.
-- Redeploy so the app uses that path for the database.
+- In your Railway project, add a **Volume** and mount it at e.g. `/data`.
+- Set **`DATA_DIR`** = **`/data`** in Variables.
+- Redeploy.
 
 ---
 

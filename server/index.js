@@ -198,12 +198,21 @@ app.post('/api/bookings', (req, res) => {
     const id = crypto.randomUUID();
     const createdAt = Date.now();
 
-    db.prepare(
-      `insert into bookings
-        (id, service_id, start_ts, end_ts, customer_name, customer_phone, customer_email, status, created_at)
-       values
-        (?,  ?,          ?,        ?,      ?,             ?,              ?,              'confirmed', ?)`
-    ).run(id, serviceId, startTs, endTs, customerName, customerPhone, customerEmail, createdAt);
+    try {
+      db.prepare(
+        `insert into bookings
+          (id, service_id, start_ts, end_ts, customer_name, customer_phone, customer_email, status, created_at)
+         values
+          (?,  ?,          ?,        ?,      ?,             ?,              ?,              'confirmed', ?)`
+      ).run(id, serviceId, startTs, endTs, customerName, customerPhone, customerEmail, createdAt);
+    } catch (dbErr) {
+      const code = dbErr && dbErr.code;
+      if (code === 'SQLITE_READONLY' || code === 'SQLITE_CANTOPEN' || (dbErr.message && dbErr.message.includes('readonly'))) {
+        console.error('[API] Database write failed (read-only or path issue). Set DATA_DIR to a writable path (e.g. /tmp/data).', dbErr);
+        return res.status(503).json({ error: 'Booking storage is temporarily unavailable. Please try again later or contact us.' });
+      }
+      throw dbErr;
+    }
 
     sendBookingNotification({
       name: customerName,
@@ -222,8 +231,9 @@ app.post('/api/bookings', (req, res) => {
       email: customerEmail,
     });
   } catch (err) {
+    const msg = err?.message || (err && String(err)) || 'Server error. Try again.';
     console.error('[API] POST /api/bookings error:', err);
-    res.status(500).json({ error: err.message || 'Server error. Try again.' });
+    res.status(500).json({ error: msg });
   }
 });
 
@@ -284,7 +294,7 @@ function countOverlaps(ranges, startTs, endTs) {
   return c;
 }
 
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log("Booking API listening on port " + PORT);
 });
